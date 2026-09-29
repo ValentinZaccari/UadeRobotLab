@@ -40,7 +40,33 @@ def comando_es_valido(comando):
       - que el tiempo no sea negativo
     """
     # TU CODIGO ACA
-    pass
+    if len(comando) == 0:
+        return False
+
+    nombre = comando[0]
+
+    if nombre == "detenerse" or nombre == "saludar":
+        return len(comando) == 1
+
+    if nombre == "avanzar" or nombre == "girar":
+        if len(comando) != 3:
+            return False
+
+        velocidad = comando[1]
+        tiempo = comando[2]
+
+        if not isinstance(velocidad, (int, float)):
+            return False
+
+        if not isinstance(tiempo, (int, float)):
+            return False
+
+        if tiempo < 0:
+            return False
+
+        return True
+
+    return False
 
 
 # =====================================================================
