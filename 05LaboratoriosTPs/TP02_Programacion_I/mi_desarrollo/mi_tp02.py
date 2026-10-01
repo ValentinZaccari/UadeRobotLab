@@ -93,6 +93,8 @@ def ejecutar_comando(robot, comando):
 # =====================================================================
 #  PARTE 3 - Recorrer la mision entera
 # =====================================================================
+    pass
+
 def ejecutar_mision(robot, mision, historial):
     """Recorre la lista de comandos, uno por uno.
 
