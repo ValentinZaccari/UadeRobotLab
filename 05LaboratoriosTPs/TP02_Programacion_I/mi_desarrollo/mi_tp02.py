@@ -86,8 +86,31 @@ def ejecutar_comando(robot, comando):
     igual (por ejemplo, si la velocidad supera el limite de la materia).
     Eso llega como un ErrorDeSeguridad y conviene atraparlo.
     """
-    # TU CODIGO ACA
-    pass
+    nombre = comando[0]
+
+    try:
+
+        if nombre == "avanzar":
+
+            robot.avanzar(velocidad=comando[1], tiempo=comando[2])
+
+        elif nombre == "girar":
+
+            robot.girar(velocidad=comando[1], tiempo=comando[2])
+
+        elif nombre == "detenerse":
+
+            robot.detenerse()
+
+        elif nombre == "saludar":
+
+            robot.saludar()
+
+    except ErrorDeSeguridad as error:
+
+        return f"Rechazado por el robot: {comando} -> {error}"
+
+    return f"Ejecutado: {comando}"  
 
 
 # =====================================================================
