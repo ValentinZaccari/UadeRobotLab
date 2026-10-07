@@ -121,7 +121,7 @@ def generar_reporte(historial):
     com_rechazados = 0
     motivos = []
 
-    # historial devuelve una lista con diccionarios (3 pares clave, valor)
+     # historial es una lista de diccionarios con 3 pares clave-valor
     for dic in historial:
         if dic["ejecutado"]:
             com_aceptados += 1
