@@ -177,26 +177,13 @@ def main():
     robot.conectar()
 
     historial = []
-    historial_prueba2 = [
-        {
-            "comando": ("volar", 0.2, 1.0),
-            "ejecutado": False,
-            "detalle": "Comando invalido",
-        },
-        {
-            "comando": ("avanzar", 0.9, 2.0),
-            "ejecutado": False,
-            "detalle": "Rechazado: supera la velocidad",
-        },
-        {"comando": ("avanzar", 0.2, 2.0), "ejecutado": True, "detalle": "OK"},
-    ]
-
+    
     try:
         # Empeza probando con MISION_BASICA.
         # Cuando funcione, proba con MISION_CON_ERRORES: esa tiene
         # comandos invalidos a proposito.
         ejecutar_mision(robot, MISION_BASICA, historial)
-        generar_reporte(historial_prueba2)
+        generar_reporte(historial)
     finally:
         robot.detenerse()
         robot.desconectar()
