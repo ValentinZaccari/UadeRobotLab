@@ -39,7 +39,6 @@ def comando_es_valido(comando):
       - que velocidad y tiempo sean numeros de verdad, no textos
       - que el tiempo no sea negativo
     """
-    # TU CODIGO ACA
     if len(comando) == 0:
         return False
 
@@ -118,8 +117,24 @@ def generar_reporte(historial):
       - cuantos se rechazaron
       - cual fue el motivo de cada rechazo
     """
-    # TU CODIGO ACA
-    pass
+    com_aceptados = 0
+    com_rechazados = 0
+    motivos = []
+
+    # historial devuelve una lista con diccionarios (3 pares clave, valor)
+    for dic in historial:
+        if dic["ejecutado"]:
+            com_aceptados += 1
+        else:
+            com_rechazados += 1
+            motivos.append((dic["comando"], dic["detalle"]))
+
+    print("\n===REPORTE===\n")
+    print(f"Comandos Aceptados: {com_aceptados}, Comandos Rechazados: {com_rechazados}")
+    if motivos:
+        print("\n[i] Motivos Rechazo:")
+        for x, y in motivos:
+            print(f"Comando: {x} --> Motivo: {y} ")
 
 
 # =====================================================================
@@ -130,13 +145,26 @@ def main():
     robot.conectar()
 
     historial = []
+    historial_prueba2 = [
+        {
+            "comando": ("volar", 0.2, 1.0),
+            "ejecutado": False,
+            "detalle": "Comando invalido",
+        },
+        {
+            "comando": ("avanzar", 0.9, 2.0),
+            "ejecutado": False,
+            "detalle": "Rechazado: supera la velocidad",
+        },
+        {"comando": ("avanzar", 0.2, 2.0), "ejecutado": True, "detalle": "OK"},
+    ]
 
     try:
         # Empeza probando con MISION_BASICA.
         # Cuando funcione, proba con MISION_CON_ERRORES: esa tiene
         # comandos invalidos a proposito.
         ejecutar_mision(robot, MISION_BASICA, historial)
-        generar_reporte(historial)
+        generar_reporte(historial_prueba2)
     finally:
         robot.detenerse()
         robot.desconectar()
