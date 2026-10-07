@@ -153,7 +153,7 @@ def generar_reporte(historial):
     com_rechazados = 0
     motivos = []
 
-     # historial es una lista de diccionarios con 3 pares clave-valor
+     #historial es una lista de diccionarios con 3 pares clave-valor
     for dic in historial:
         if dic["ejecutado"]:
             com_aceptados += 1
@@ -177,7 +177,7 @@ def main():
     robot.conectar()
 
     historial = []
-    
+
     try:
         # Empeza probando con MISION_BASICA.
         # Cuando funcione, proba con MISION_CON_ERRORES: esa tiene
