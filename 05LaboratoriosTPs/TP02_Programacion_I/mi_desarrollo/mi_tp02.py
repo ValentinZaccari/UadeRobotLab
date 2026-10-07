@@ -86,23 +86,31 @@ def ejecutar_comando(robot, comando):
     igual (por ejemplo, si la velocidad supera el limite de la materia).
     Eso llega como un ErrorDeSeguridad y conviene atraparlo.
     """
-    acciones = {
-        "avanzar": lambda: robot.avanzar(velocidad=comando[1], tiempo=comando[2]),
-        "girar": lambda: robot.girar(velocidad=comando[1], tiempo=comando[2]),
-        "detenerse": lambda: robot.detenerse(),
-        "saludar": lambda: robot.saludar(),
-    }
-
     nombre = comando[0]
-    if nombre not in acciones:
-        return f"Comando desconocido: {comando}"
 
     try:
-        acciones[nombre]()
+
+        if nombre == "avanzar":
+
+            robot.avanzar(velocidad=comando[1], tiempo=comando[2])
+
+        elif nombre == "girar":
+
+            robot.girar(velocidad=comando[1], tiempo=comando[2])
+
+        elif nombre == "detenerse":
+
+            robot.detenerse()
+
+        elif nombre == "saludar":
+
+            robot.saludar()
+
     except ErrorDeSeguridad as error:
+
         return f"Rechazado por el robot: {comando} -> {error}"
 
-    return f"Ejecutado: {comando}"    
+    return f"Ejecutado: {comando}"  
 
 
 # =====================================================================
