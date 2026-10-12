@@ -9,13 +9,20 @@
 #    2. Espera a que aparezca la ventana con el robot
 #    3. Recien ahi ejecuta este archivo
 #
-#  Nombre y apellido:  .....................................
-#  Comision:           .....................................
+#  #  Integrantes:
+#  - Valentin Zaccari
+#  - Valentino Sarniguette
+#  - Franco Garcia Lesme
+#  - Sanchez De Ignacio Tomas
+#  - Albornoz Thiago Agustin
+#  - Trezeguet Gaston
+#
+#  Comision: 9480
 # =====================================================================
 
 from robot import ErrorDeSeguridad, Robot
 
-from misiones import MISION_BASICA, MISION_CON_ERRORES, MISION_CUADRADO
+from misiones import MISION_BASICA, MISION_CON_ERRORES, MISION_CUADRADO, MISION_LARGA
 
 
 # =====================================================================
@@ -179,9 +186,6 @@ def main():
     historial = []
 
     try:
-        # Empeza probando con MISION_BASICA.
-        # Cuando funcione, proba con MISION_CON_ERRORES: esa tiene
-        # comandos invalidos a proposito.
         ejecutar_mision(robot, MISION_BASICA, historial)
         generar_reporte(historial)
     finally:
