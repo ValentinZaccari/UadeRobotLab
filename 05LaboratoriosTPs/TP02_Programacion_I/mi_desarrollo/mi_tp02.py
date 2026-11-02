@@ -9,7 +9,7 @@
 #    2. Espera a que aparezca la ventana con el robot
 #    3. Recien ahi ejecuta este archivo
 #
-#  #  Integrantes:
+#  Integrantes:
 #  - Valentin Zaccari
 #  - Valentino Sarniguette
 #  - Franco Garcia Lesme
@@ -46,7 +46,10 @@ def comando_es_valido(comando):
       - que velocidad y tiempo sean numeros de verdad, no textos
       - que el tiempo no sea negativo
     """
-    if len(comando) == 0:
+    try:
+        if len(comando) == 0:
+            return False
+    except TypeError:
         return False
 
     nombre = comando[0]
@@ -61,10 +64,10 @@ def comando_es_valido(comando):
         velocidad = comando[1]
         tiempo = comando[2]
 
-        if not isinstance(velocidad, (int, float)):
-            return False
-
-        if not isinstance(tiempo, (int, float)):
+        try:
+            velocidad + 0
+            tiempo + 0
+        except TypeError:
             return False
 
         if tiempo < 0:
@@ -116,7 +119,7 @@ def ejecutar_comando(robot, comando):
 
         return f"Rechazado por el robot: {comando} -> {error}"
 
-    return f"Ejecutado: {comando}"  
+    return f"Ejecutado: {comando}"
 
 
 # =====================================================================
@@ -186,7 +189,7 @@ def main():
     historial = []
 
     try:
-        ejecutar_mision(robot, MISION_BASICA, historial)
+        ejecutar_mision(robot, MISION_CON_ERRORES, historial)
             
         generar_reporte(historial)
     finally:
