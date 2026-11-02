@@ -187,6 +187,7 @@ def main():
 
     try:
         ejecutar_mision(robot, MISION_BASICA, historial)
+            
         generar_reporte(historial)
     finally:
         robot.detenerse()
