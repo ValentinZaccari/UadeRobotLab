@@ -29,22 +29,14 @@ from misiones import MISION_BASICA, MISION_CON_ERRORES, MISION_CUADRADO, MISION_
 #  PARTE 1 - Validar un comando
 # =====================================================================
 def comando_es_valido(comando):
-    """Decide si un comando se puede ejecutar. Devuelve True o False.
+    """Verifica si un comando tiene el formato correcto.
 
-    Un comando es una tupla. El primer elemento dice que hacer:
+    Los comandos avanzar y girar reciben una velocidad y un tiempo.
+    Los comandos detenerse y saludar no reciben parametros.
+    Para avanzar y girar, comprueba que los valores sean numericos
+    y que el tiempo no sea negativo.
 
-        ("avanzar", velocidad, tiempo)    velocidad en m/s, tiempo en s
-        ("girar", velocidad, tiempo)      velocidad en rad/s, tiempo en s
-        ("detenerse",)
-        ("saludar",)
-
-    Cosas que conviene revisar:
-      - que la tupla no este vacia
-      - que el nombre del comando sea uno de los cuatro validos
-      - que tenga la cantidad de datos que corresponde
-        (avanzar y girar llevan dos; detenerse y saludar, ninguno)
-      - que velocidad y tiempo sean numeros de verdad, no textos
-      - que el tiempo no sea negativo
+    Devuelve True si el comando es valido y False en caso contrario.
     """
     if len(comando) == 0:
         return False
@@ -79,18 +71,11 @@ def comando_es_valido(comando):
 #  PARTE 2 - Ejecutar un comando
 # =====================================================================
 def ejecutar_comando(robot, comando):
-    """Ejecuta UN comando en el robot. Devuelve un texto con lo que paso.
+    """ Ejecuta un comando del robot y devuelve un mensaje con el resultado.
 
-    Ordenes que podes usar:
-
-        robot.avanzar(velocidad=..., tiempo=...)
-        robot.girar(velocidad=..., tiempo=...)
-        robot.detenerse()
-        robot.saludar()
-
-    Ojo: aunque el comando parezca valido, el robot puede rechazarlo
-    igual (por ejemplo, si la velocidad supera el limite de la materia).
-    Eso llega como un ErrorDeSeguridad y conviene atraparlo.
+    Segun el nombre del comando, el robot avanza, gira, se detiene
+    o saluda. Si el robot produce un ErrorDeSeguridad, devuelve
+    un mensaje de rechazo con el motivo.
     """
     nombre = comando[0]
 
@@ -124,14 +109,11 @@ def ejecutar_comando(robot, comando):
 # =====================================================================
 
 def ejecutar_mision(robot, mision, historial):
-    """Recorre la lista de comandos, uno por uno.
+    """Ejecuta los comandos de una mision y registra sus resultados.
 
-    Por cada comando:
-      - si NO es valido, lo rechaza y sigue con el siguiente
-      - si es valido, lo ejecuta
-      - en los dos casos, guarda en 'historial' que fue lo que paso
-
-    Un comando invalido NO tiene que cortar la mision.
+    Valida cada comando antes de ejecutarlo. Los comandos invalidos
+    o rechazados se registran sin interrumpir la mision.
+    Guarda en historial el comando, si se ejecuto y su detalle.
     """
     for comando in mision:
         if comando_es_valido(comando):
@@ -149,12 +131,10 @@ def ejecutar_mision(robot, mision, historial):
 #  PARTE 4 - El reporte final
 # =====================================================================
 def generar_reporte(historial):
-    """Muestra por pantalla un resumen de la mision.
+    """Muestra un resumen de los comandos ejecutados en la mision.
 
-    Tiene que decir, como minimo:
-      - cuantos comandos se ejecutaron bien
-      - cuantos se rechazaron
-      - cual fue el motivo de cada rechazo
+    Cuenta los comandos aceptados y rechazados del historial.
+    Si hubo rechazos, muestra cada comando y su motivo.
     """
     com_aceptados = 0
     com_rechazados = 0
